@@ -3,7 +3,7 @@
   <nav class="sub-nav">
     {{breadcrumbs}}
     <div class="search-container">
-      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon" aria-hidden="true">
         <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="currentColor"/>
         <path stroke="currentColor" stroke-linecap="round" d="M11 11L7.5 7.5"/>
       </svg>
@@ -58,7 +58,7 @@
           {{#if settings.show_article_author}}
             <div class="avatar article-avatar">
               {{#if article.author.agent}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="icon-agent">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="icon-agent" aria-label="{{t 'team_member' name=article.author.name}}">
                   <path fill="currentColor" d="M6 0C2.7 0 0 2.7 0 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm2.3 7H3.7c-.3 0-.4-.3-.3-.5C3.9 7.6 4.9 7 6 7s2.1.6 2.6 1.5c.1.2 0 .5-.3.5z"/>
                 </svg>
               {{/if}}
@@ -119,16 +119,13 @@
           {{/if}}
           {{#if settings.show_article_comments}}
             {{#if comments}}
-              <a href="#article-comments" class="article-comment-count" title="{{t 'go_to_comments'}}">
-                <span class="visibility-hidden">
-                  {{t 'comments_count' count=article.comment_count}}
-                </span>
-                <span aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="article-comment-count-icon">
-                    <path fill="none" stroke="currentColor" d="M1 .5h10c.3 0 .5.2.5.5v7c0 .3-.2.5-.5.5H6l-2.6 2.6c-.3.3-.9.1-.9-.4V8.5H1C.7 8.5.5 8.3.5 8V1C.5.7.7.5 1 .5z"/>
-                  </svg>
-                  {{article.comment_count}}
-                </span>
+              <a href="#article-comments" class="article-comment-count">
+                <svg role="img" aria-labelledby="article-comments-title article-comments-desc" xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="article-comment-count-icon">
+                  <title id="article-comments-title">{{t 'go_to_comments'}}</title>
+                  <desc id="article-comments-desc">{{t 'comments_count' count=article.comment_count}}</desc>
+                  <path fill="none" stroke="currentColor" d="M1 .5h10c.3 0 .5.2.5.5v7c0 .3-.2.5-.5.5H6l-2.6 2.6c-.3.3-.9.1-.9-.4V8.5H1C.7 8.5.5 8.3.5 8V1C.5.7.7.5 1 .5z"/>
+                </svg>
+                <span aria-hidden="true">{{article.comment_count}}</span>
               </a>
             {{/if}}
           {{/if}}
@@ -200,7 +197,7 @@
                       <div class="comment-author">
                         <div class="avatar comment-avatar">
                           {{#if author.agent}}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="icon-agent">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="icon-agent" aria-label="{{t 'team_member' name=author.name}}">
                               <path fill="currentColor" d="M6 0C2.7 0 0 2.7 0 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm2.3 7H3.7c-.3 0-.4-.3-.3-.5C3.9 7.6 4.9 7 6 7s2.1.6 2.6 1.5c.1.2 0 .5-.3.5z"/>
                             </svg>
                           {{/if}}
@@ -250,7 +247,9 @@
 
                             {{#if (compare (calc author.badges.length "-" 4) ">" 0)}}
                               <div class="community-badge community-badge-achievements">
-                                {{#link "user_profile" id=author.id filter_by="badges" class="community-badge-achievements-rest"}}{{t 'plus_more' count=(calc author.badges.length "-" 4)}}{{/link}}
+                                <a href="{{page_path "user_profile" id=author.id filter_by="badges"}}" class="community-badge-achievements-rest"  aria-label="{{t 'more_awards_to' count=(calc author.badges.length "-" 4) name=author.name}}">
+                                  {{t 'plus_more' count=(calc author.badges.length "-" 4)}}
+                                </a>
                               </div>
                             {{/if}}
                           </div>
