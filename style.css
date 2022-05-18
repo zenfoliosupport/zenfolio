@@ -746,7 +746,7 @@ ul {
 
 .nav-wrapper-desktop a {
   border: 0;
-  color: $link_color;
+  color: #000000;
   display: none;
   font-size: 14px;
   padding: 0 20px 0 0;
@@ -765,7 +765,7 @@ ul {
 
 .nav-wrapper-desktop a:hover, .nav-wrapper-desktop a:focus, .nav-wrapper-desktop a:active {
   background-color: transparent;
-  color: $link_color;
+  color: #000000;
   text-decoration: underline;
 }
 
